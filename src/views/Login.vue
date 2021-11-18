@@ -9,13 +9,13 @@
              element-loading-background="rgba(0, 0, 0, 0.8)"
              :model="loginForm"
              class="loginContainer">
-      <h3>系统登陆</h3>
+      <h3>校园人事管理系统登陆</h3>
       <el-form-item prop="username">
         <el-input type="text" v-model="loginForm.username" auto-complete="off"
                   placeholder="请输入用户名..."></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="text" v-model="loginForm.password" auto-complete="off"
+        <el-input type="password" v-model="loginForm.password" auto-complete="off"
                   placeholder="请输入密码..." @keydown.enter.native="submitLogin"></el-input>
       </el-form-item>
       <el-button type="primary" style="width: 50%" @click="submitLogin">登录</el-button>
@@ -57,7 +57,7 @@
               }
             })
           } else {
-            this.$message.error('错了哦，这是一条错误消息');
+            this.$message.error('这是一条错误消息');
             return false;
           }
         });

@@ -13,7 +13,7 @@ module.exports={
     //开发环境配置
     devServer:{
         host:'localhost',
-        port:8080,
+        port:8082,
         proxy:proxyObj
     }
 }
