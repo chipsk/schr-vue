@@ -22,14 +22,15 @@
         <el-aside width="200px">
           <el-menu router unique-opened>
 <!--            这里使用template标签将v-for和v-if区分开来避免循环混淆-->
-            <template :index="index+''" v-for="(item,index) in routes">
-              <el-submenu v-if="!item.hidden" :key="index">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <i style="color: cornflowerblue;margin-right: 8px" :class="item.iconCls"></i>
-                <span>{{item.name}}</span>
-              </template>
-              <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">{{child.name}}</el-menu-item>
+            <template v-for="(item,index) in routes">
+              <el-submenu :index="index+''" v-if="!item.hidden" :key="index">
+                <template slot="title">
+                  <i style="color: #b3a3da;margin-right: 8px" :class="item.iconCls"></i>
+                  <span>{{item.name}}</span>
+                </template>
+                <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
+                  {{child.name}}
+                </el-menu-item>
               </el-submenu>
             </template>
           </el-menu>

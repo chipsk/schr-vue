@@ -25,7 +25,7 @@
 
 <script>
 
-  import {postKeyValueRequest} from "@/utils/api";
+  //import {postKeyValueRequest} from "@/utils/api";
 
   export default {
     name: "Login",
@@ -46,18 +46,17 @@
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
             //alert('submit!');
-            //请求成功处理
-            postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
+            this.postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
               if (resp) {
                 window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
-                let path = this.$route.query.redirect;
-                //两个方法：replace和push
-                //区别：push可以页面后退 replace不可以
-                this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                let path=this.$route.query.redirect;
+                //如果(path=='/'||path==undefined)，就去home页，否则去path
+
+                this.$router.replace((path=='/'||path==undefined)?'/home':path);
               }
             })
           } else {
-            this.$message.error('这是一条错误消息');
+            this.$message.error('错了哦，这是一条错误消息');
             return false;
           }
         });

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui';
-import store from './store/index.js'
+import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
 
 import {postRequest} from "./utils/api";
@@ -11,6 +11,7 @@ import {getRequest} from "./utils/api";
 import {deleteRequest} from "./utils/api";
 import {postKeyValueRequest} from "./utils/api";
 import {initMenu} from "@/utils/menus";
+import 'font-awesome/css/font-awesome.min.css'
 
 Vue.prototype.postRequest=postRequest;
 Vue.prototype.putRequest=putRequest;
@@ -29,12 +30,19 @@ new Vue({
 }).$mount('#app')
 
 router.beforeEach((to, from, next) => {
-  //判断要跳转的页面是否是登录页
   if (to.path=='/'){
     next();
   }else {
-    initMenu(router,store);
-    next();
+    if(window.sessionStorage.getItem("user")){
+      initMenu(router,store);
+      next();
+    }else {
+
+      next("/?redirect="+to.path);
+    }
+
   }
 })
+
+
 
