@@ -159,8 +159,8 @@ export default {
       Object.assign(this.updateJl,data);
       this.dialogVisible=true;
     },
-    doUpdate(){
-      this.putRequest("/system/basic/joblevel/",this.updateJl).then(resp=>{
+    doUpdate(index,data){
+      this.putRequest("/system/basic/joblevel/"+data.id).then(resp=>{
         if (resp){
           this.initJls();
           this.dialogVisible=false;

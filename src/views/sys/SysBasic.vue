@@ -11,7 +11,7 @@
 </template>
 
 <script>
-//导入各个组件  重要！
+//导入各个组件
 import DepMana from '../../components/sys/basic/DepMana'
 import EcMana from '../../components/sys/basic/EcMana'
 import JobLevelMana from '../../components/sys/basic/JobLevelMana'

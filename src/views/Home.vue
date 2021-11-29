@@ -3,8 +3,13 @@
     <el-container>
       <el-header class="homeHeader">
         <div class="title">
-          <i class="el-icon-s-custom"></i>
-          校园人事管理系统
+          <el-image
+              style="width: 280px; height: 65px "
+              :src="url"
+              :to="{ path: '/home' }">
+          </el-image>
+<!--          <i class="el-icon-s-custom"></i>-->
+<!--          校园人事管理系统-->
         </div>
         <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
@@ -91,6 +96,9 @@ export default {
       //读取存在sessionStorge中的用户信息，并转化为JSON对象
       user:JSON.parse(window.sessionStorage.getItem("user")),
       activeNames: ['1'],
+      fits: ['fill'],
+      url: 'https://i.loli.net/2021/11/29/Txv9MPLkhByFdZE.png',
+      path: '/home',
     }
   },
   computed:{
@@ -136,7 +144,7 @@ export default {
   margin-top: 10px;
 }
 .homeHeader{
-  background-color: #b3a3da;
+  background-color: #c6bcda;
   display: flex;
   align-items: center;
   justify-content: space-between;

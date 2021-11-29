@@ -14,6 +14,80 @@
            aria-hidden="true"></i>
         工号查询
       </el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="showAddSalView">
+        添加工资表
+      </el-button>
+      <el-dialog
+          :title="title"
+          :visible.sync="dialogVisible"
+          width="80%">
+        <div>
+          <el-form :model="salaries" ref="salForm">
+            <el-row>
+              <el-col :span="6">
+                <el-form-item label="工号:" prop="userID">
+                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit" v-model="salaries.userID"
+                            placeholder="请输入工号"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="姓名:" prop="username">
+                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit" v-model="salaries.username"
+                            placeholder="请输入员工姓名"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="部门编号:" prop="departmentid">
+                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                            v-model="salaries.departmentid" placeholder="部门编号"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="7">
+                <el-form-item label="基础薪资:" prop="basisSalary">
+                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                            v-model="salaries.basisSalary" placeholder="基础薪资"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="7">
+                <el-form-item label="总薪资:" prop="allSalary">
+                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                            v-model="salaries.allSalary" placeholder="总薪资"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="7">
+                <el-form-item label="奖金:" prop="bonus">
+                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                            v-model="salaries.bonus" placeholder="奖金"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="7">
+                <el-form-item label="备注:" prop="remark">
+                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                            v-model="salaries.remark" placeholder="备注"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="发放时间:" prop="adate">
+                  <el-date-picker
+                      v-model="salaries.adate"
+                      size="mini"
+                      type="date"
+                      value-format="yyyy-MM-dd"
+                      style="width: 150px;"
+                      placeholder="发放时间">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="doAddSalary">确 定</el-button>
+  </span>
+      </el-dialog>
     </div>
     <transition name="slide-fade">
       <div v-show="showAdvanceSearchView"
@@ -114,23 +188,45 @@
     </div>
     <el-dialog
         title="修改职位"
-        :visible.sync="dialogVisible"
-        width="30%">
+        :visible.sync="dialogVisible2"
+        width="35%">
       <div>
-        <div><el-tag>职位名称</el-tag>
-          <el-input class="updatePosInput" size="small" v-model="updatePos.name"></el-input>
+        <div><el-tag>工号</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.userID"></el-input>
+        </div>
+        <div><el-tag>姓名</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.username"></el-input>
+        </div>
+        <div><el-tag>部门编号</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.departmentid"></el-input>
+        </div>
+        <div><el-tag>基础薪资</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.basisSalary"></el-input>
+        </div>
+        <div><el-tag>总薪资</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.allSalary"></el-input>
+        </div>
+        <div><el-tag>奖金</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.bonus"></el-input>
+        </div>
+        <div><el-tag>备注</el-tag>
+          <el-input class="updateSalInput" size="small" v-model="updateSal.remark"></el-input>
         </div>
         <div>
-          <el-tag style="margin-right: 8px">是否启用</el-tag>
-          <el-switch
-              v-model="updatePos.enabled"
-              active-text="启用"
-              inactive-text="禁用">
-          </el-switch>
+          <el-tag>发放时间</el-tag>
+          <el-date-picker
+              v-model="updateSal.adate"
+              class="updateSalInput"
+              size="small"
+              type="date"
+              value-format="yyyy-MM-dd"
+              style="width: 150px;"
+              placeholder="发放时间">
+          </el-date-picker>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-    <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+    <el-button size="small" @click="dialogVisible2 = false">取 消</el-button>
     <el-button size="small" type="primary" @click="doUpdate">确 定</el-button>
   </span>
     </el-dialog>
@@ -151,31 +247,101 @@ export default {
         name:''
       },
       dialogVisible:false,
-      updatePos:{
-        name:'',
-        enabled:false
+      dialogVisible2:false,
+      updateSal:{
+        userID: "",
+        username: "",
+        departmentid: 9,
+        basisSalary: "",
+        allSalary: "",
+        bonus: "",
+        remark: "",
+        adate: "",
       },
       multipleSelection:[],
       salaries:[],
       keyword: '',
-      loading: false,
       type: '',
+      allDeps: [],
       page: 1,
       total: 0,
+      loading: false,
+      popVisible: false,
+      popVisible2: false,
+      defaultProps: {
+        children: 'children',
+        label: 'name'
+      },
       size: 10,
+      title: '',
       showAdvanceSearchView: false,
+      sal: {
+        userID: "101111",
+        username: "zzl",
+        departmentid: 9,
+        basisSalary: "5000",
+        allSalary: "8000",
+        bonus: "2000",
+        remark: "无",
+        adate: "2021-11-29",
+      },
+      rules: {
+        name: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+        userSex: [{required: true, message: '请输入性别', trigger: 'blur'}],
+        birthday: [{required: true, message: '请输入出生日期', trigger: 'blur'}],
+        idCard: [{required: true, message: '请输入身份证号码', trigger: 'blur'}, {
+          pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
+          message: '身份证号码格式不正确',
+          trigger: 'blur'
+        }],
+        politicId: [{required: true, message: '请输入政治面貌', trigger: 'blur'}],
+        e_mail: [{required: true, message: '请输入邮箱地址', trigger: 'blur'}, {
+          type: 'email',
+          message: '邮箱格式不正确',
+          trigger: 'blur'
+        }],
+        phone: [{required: true, message: '请输入电话号码', trigger: 'blur'}],
+        address: [{required: true, message: '请输入员工地址', trigger: 'blur'}],
+        departmentid: [{required: true, message: '请输入部门名称', trigger: 'blur'}],
+        joblevel: [{required: true, message: '请输入职称', trigger: 'blur'}],
+        positionid: [{required: true, message: '请输入职位', trigger: 'blur'}],
+        workstatus: [{required: true, message: '请输入工作状态', trigger: 'blur'}],
+        userID: [{required: true, message: '请输入工号', trigger: 'blur'}],
+        contractTime: [{required: true, message: '请输入合同期限', trigger: 'blur'}],
+        beginworkDate: [{required: true, message: '请输入合同起始日期', trigger: 'blur'}],
+        endworkDate: [{required: true, message: '请输入合同结束日期', trigger: 'blur'}],
+      },
+
+      emptySal() {
+        this.salaries = {
+          userID: "",
+          username: "",
+          departmentid: 9,
+          basisSalary: "",
+          allSalary: "",
+          bonus: "",
+          remark: "",
+          adate: "",
+        }
+        this.inputDepName = '';
+      },
     }
   },
   mounted(){
     this.initSals();
   },
   methods:{
-    //添加职位
+    searvhViewHandleNodeClick(data) {
+      this.inputDepName = data.name;
+      this.searchValue.departmentId = data.id;
+      this.popVisible2 = !this.popVisible2
+    },
+    //添加工资表
     addPosition(){
       if (this.pos.name){
-        this.postRequest("/system/basic/pos/",this.pos).then(resp=>{
+        this.postRequest("/salary/table/",this.pos).then(resp=>{
           if (resp){
-            //刷新职位
+            //刷新工资表
             this.initSals();
             //清空输入
             this.pos.name='';
@@ -200,10 +366,9 @@ export default {
         this.multipleSelection.forEach(item=>{
           ids+='ids='+item.id+'&';
         })
-        this.deleteRequest("/system/basic/pos/"+ids).then(resp=>{
+        this.deleteRequest("/salary/table/"+ids).then(resp=>{
           if (resp){
             this.initSals();
-
           }
         })
       }).catch(() => {
@@ -214,27 +379,27 @@ export default {
       });
     },
     showEditView(index,data){
-      Object.assign(this.updatePos,data);
-      this.dialogVisible=true;
+      Object.assign(this.updateSal,data);
+      this.dialogVisible2=true;
     },
-    //更新职位
+
     doUpdate(){
-      this.putRequest("/system/basic/pos/",this.updatePos).then(resp=>{
+      this.putRequest("/salary/table/",this.updateSal).then(resp=>{
         if (resp){
           this.initSals();
-          this.updatePos.name='';
-          this.dialogVisible=false;
+          this.updateSal.name='';
+          this.dialogVisible2=false;
         }
       })
     },
-    //删除职位
+
     handleDelete(index,data){
       this.$confirm('此操作将永久删除【'+data.name+'】, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.deleteRequest("/system/basic/pos/"+data.id).then(resp=>{
+        this.deleteRequest("/salary/table/"+data.id).then(resp=>{
           if (resp) {
             this.initSals();
           }
@@ -253,6 +418,11 @@ export default {
     sizeChange(currentSize) {
       this.size = currentSize;
       this.initSals();
+    },
+    showAddSalView() {
+      this.emptySal();
+      this.title = '添加工资表';
+      this.dialogVisible = true;
     },
 
     initSals(type) {
@@ -274,6 +444,31 @@ export default {
           this.salaries = resp.data;
         }
       });
+    },
+    doAddSalary() {
+      if (this.salaries.id) {
+        this.$refs['salForm'].validate(valid => {
+          if (valid) {
+            this.putRequest("/salary/table/", this.sal).then(resp => {
+              if (resp) {
+                this.dialogVisible = false;
+                this.initEmps();
+              }
+            })
+          }
+        });
+      } else {
+        this.$refs['salForm'].validate(valid => {
+          if (valid) {
+            this.postRequest("/salary/table/", this.sal).then(resp => {
+              if (resp) {
+                this.dialogVisible = false;
+                this.initSals();
+              }
+            })
+          }
+        });
+      }
     },
   },
 }

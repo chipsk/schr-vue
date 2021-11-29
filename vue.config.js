@@ -15,5 +15,14 @@ module.exports={
         host:'localhost',
         port:8082,
         proxy:proxyObj
+    },
+    pwa: {
+        iconPaths: {
+            favicon32: 'favicon.ico',
+            favicon16: 'favicon.ico',
+            appleTouchIcon: 'favicon.ico',
+            maskIcon: 'favicon.ico',
+            msTileImage: 'favicon.ico'
+        }
     }
 }
