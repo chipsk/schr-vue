@@ -99,6 +99,7 @@ export default {
       fits: ['fill'],
       url: 'https://i.loli.net/2021/11/29/Txv9MPLkhByFdZE.png',
       path: '/home',
+      activeName: 'second',
     }
   },
   computed:{
@@ -107,6 +108,9 @@ export default {
     }
   },
   methods:{
+    handleClick(tab, event) {
+      console.log(tab, event);
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },

@@ -382,7 +382,7 @@
             <el-col :span="6">
               <el-form-item label="转正日期:" prop="conversionTime">
                 <el-date-picker
-                    v-model="emp.conversionTime"
+                    v-model="emp.contractTime"
                     size="mini"
                     type="date"
                     value-format="yyyy-MM-dd"
