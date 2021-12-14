@@ -303,16 +303,11 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row>
             <el-col :span="7">
               <el-form-item label="政治面貌:" prop="politic">
-                <el-select v-model="emp.politic" placeholder="政治面貌" size="mini" style="width: 200px;">
-                  <el-option
-                      v-for="item in politicsstatus"
-                      :key="item.id"
-                      :label="item.name"
-                      :value="item.id">
-                  </el-option>
-                </el-select>
+                <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                          v-model="emp.politic" placeholder="政治面貌"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -321,6 +316,7 @@
                           v-model="emp.e_mail" placeholder="请输入电子邮箱"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
           <el-row>
             <el-col :span="7">
               <el-form-item label="联系地址:" prop="address">
@@ -380,15 +376,9 @@
           </el-row>
           <el-row>
             <el-col :span="6">
-              <el-form-item label="转正日期:" prop="conversionTime">
-                <el-date-picker
-                    v-model="emp.contractTime"
-                    size="mini"
-                    type="date"
-                    value-format="yyyy-MM-dd"
-                    style="width: 130px;"
-                    placeholder="转正日期">
-                </el-date-picker>
+              <el-form-item label="合同年限:" prop="conversionTime">
+                <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
+                          v-model="emp.contractTime" placeholder="合同年限"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">
