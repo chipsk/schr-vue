@@ -1,42 +1,36 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Login from './views/Login.vue'//vue-cli3
-import Home from './views/Home.vue';
-import HrInfo from './views/HrInfo';
-import FriendChat from './views/chat/FriendChat'
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from './views/Login.vue'
+import Home from './views/Home.vue'
 
-Vue.use(Router);
+// 个人中心
+import HrInfo from './views/HrInfo.vue'
 
-/*
-const router = new VueRouter({
-    mode: 'hash',
-    base: process.env.BASE_URL,
-})
-*/
 
+Vue.use(Router)
 
 export default new Router({
+    mode: 'hash',
+    base: process.env.BASE_URL,
     routes: [
         {
             path: '/',
             name: 'Login',
             component: Login,
+            // 避免登录页被动态地渲染到侧边栏菜单的左边去
             hidden: true
-        }, {
+        },
+        {
             path: '/home',
             name: 'Home',
             component: Home,
+            // 避免登录页被动态地渲染到侧边栏菜单的左边去
             hidden: true,
             meta: {
                 roles: ['admin', 'user']
             },
             children: [
                 {
-                    path: '/chat',
-                    name: '在线聊天',
-                    component: FriendChat,
-                    hidden: true
-                }, {
                     path: '/hrinfo',
                     name: '个人中心',
                     component: HrInfo,

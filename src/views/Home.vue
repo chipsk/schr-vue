@@ -120,25 +120,35 @@ export default {
     handleChange(val) {
       console.log(val)
     },
-    commandHandler(cmd){
-      if (cmd == 'logout'){
-        this.$confirm('此操作将注销登录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.getRequest("/logout");
-          window.sessionStorage.removeItem("user");
-          this.$store.commit('initRoutes',[]);//清空
-          this.$router.replace("/");
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消操作'
-          });
-        });
+    commandHandler(cmd) {
+      // 如果点击的值logout，则添加一个消息弹框以便确认用户注销的决定，并决定是否进行注销。
+      // 参见ElementUI的Message弹框
+      if (cmd == "logout") {
+        this.$confirm("是否注销?", "提示", {
+          confirmButtonText: "注销",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+            .then(() => {
+              this.getRequest("/logout");
+              // 将下方的消息提示统一封装在api.js中
+              //
+              // 移除登录用户的信息
+              window.sessionStorage.removeItem("user");
+              this.$store.commit("initRoutes", []);
+              // 将页面跳转至登录页面
+              this.$router.replace("/");
+            })
+            .catch(() => {
+              this.$message({
+                type: "info",
+                message: "取消注销"
+              });
+            });
+      } else if (cmd == "userInfo") {
+        this.$router.push("/hrinfo");
       }
-    }
+    },
   }
 }
 </script>
