@@ -30,7 +30,7 @@ new Vue({
 }).$mount('#app')
 
 router.beforeEach((to, from, next) => {
-  if (to.path=='/'){
+  if (to.path==='/'){
     next();
   }else {
     if(window.sessionStorage.getItem("user")){

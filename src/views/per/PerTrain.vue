@@ -118,7 +118,7 @@
               <i class="el-icon-edit el-input__icon" slot="suffix"> </i>
               <template slot-scope="{ item }">
                 <div class="name">{{ item.value }}</div>
-                <span class="addr">{{ item.workID }}</span>
+                <span class="addr">{{ item.userID }}</span>
               </template>
             </el-autocomplete>
           </el-form-item>
